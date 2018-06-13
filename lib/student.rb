@@ -44,4 +44,11 @@ class Student
     student = self.new(row[1], row[2], row[0])
     student.save
   end
+
+  def find_by_name(name)
+    sql = "SELECT * FROM students WHERE name = ? LIMIT 1"
+    DB[:conn].execute(sql, name).map { |row|
+      self.new_from_db(row)
+    }.first
+  end
 end
